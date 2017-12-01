@@ -64,10 +64,9 @@ final class MergedContainer implements ContainerInterface
             /* @var ContainerInterface $container */
             if ($container->has($id)) {
                 $value = $container->get($id);
-                if (!is_array($value)) {
-                    throw new CannotMergeNonArray($id);
+                if (is_array($value)) {
+                    $merged = array_merge($merged, $value);
                 }
-                $merged = array_merge($merged, $container->get($id));
             }
         }
 

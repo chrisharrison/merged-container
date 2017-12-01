@@ -135,7 +135,7 @@ final class MergedContainerTest extends TestCase
         $this->assertEquals(100, $merged['a']);
     }
 
-    public function test_exception_is_thrown_when_attempting_to_merge_non_array_value()
+    public function test_non_array_values_are_ignored_when_merging_arrays()
     {
         $container1 = new SimpleContainer([
             'merge' => [
@@ -148,9 +148,16 @@ final class MergedContainerTest extends TestCase
             'merge' => 'not-an-array',
         ]);
 
-        $test = new MergedContainer([$container1, $container2], ['merge']);
+        $container3 = new SimpleContainer([
+            'merge' => [
+                'a' => 100
+            ],
+        ]);
 
-        $this->expectException(CannotMergeNonArray::class);
-        $test->get('merge');
+        $test = new MergedContainer([$container1, $container2, $container3], ['merge']);
+        $merged = $test->get('merge');
+
+        $this->assertEquals(100, $merged['a']);
+        $this->assertEquals(2, $merged['b']);
     }
 }
