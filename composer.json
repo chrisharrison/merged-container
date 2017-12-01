@@ -2,6 +2,7 @@
   "name": "chrisharrison/merged-container",
   "description": "A PSR-11 compliant container that merges a set of PSR-11 containers. You might call it a container container.",
   "type": "library",
+  "license": "MIT",
   "authors": [
     {
       "name": "Chris Harrison",
